@@ -9,13 +9,12 @@
 
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(model => model.Description)
-    @Html.EditorFor(model => model.Description)
-
-    @Html.LabelFor(model => model.CategoryId)
-    @Html.DropDownList("CategoryId")
-
-    <input type="submit" value="Create" class="btn btn-default" />
+    <label>@Html.LabelFor(model => model.Description)</label>
+   <input class="form-control">@Html.EditorFor(model => model.Description)
+   <br>
+    <label>@Html.LabelFor(model => model.CategoryId)</label>  @Html.DropDownList("CategoryId")
+    <br>
+    <input type="submit" value="Create" class="btn btn-default btn-lg" />
 }
 
 @Html.ActionLink("Back to List", "Index")
