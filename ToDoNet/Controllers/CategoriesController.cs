@@ -16,7 +16,8 @@ namespace ToDoNet.Controllers
         private ToDoNetContext db = new ToDoNetContext();
         public IActionResult Index()
         {
-            return View(db.Categories.Include(categories => categories.Items).ToList());
+            List<Category> model = db.Categories.ToList();
+            return View(model);
         }
         public IActionResult Details(int id)
         {
