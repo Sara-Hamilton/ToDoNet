@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
+using ToDoNet.Models;
 
 namespace ToDoNet
 {
@@ -19,7 +20,7 @@ namespace ToDoNet
         {
             var builder = new ConfigurationBuilder()
               .SetBasePath(env.ContentRootPath)
-              .AddEnvironmentVariables();
+                .AddJsonFile("appsettings.json");
             Configuration = builder.Build();
         }
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -27,12 +28,15 @@ namespace ToDoNet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddEntityFrameworkMySql()
+            .AddDbContext<ToDoNetContext>(options =>
+                                      options
+                                           .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-           
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
