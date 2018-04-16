@@ -15,5 +15,11 @@ namespace ToDoNet.Controllers
             List<Item> model = db.Items.ToList();
             return View(model);
         }
+
+        public IActionResult Details(int id)
+        {
+            Item thisItem = db.Items.FirstOrDefault(items => items.ItemId == id);
+            return View(thisItem);
+        }
     }
 }
