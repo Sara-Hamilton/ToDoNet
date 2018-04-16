@@ -38,7 +38,7 @@ namespace ToDoNet.Controllers
         public IActionResult Edit(int id)
         {
             var thisCategory= db.Categories.FirstOrDefault(categories => categories.CategoryId == id);
-            ViewBag.CategoryId = new SelectList(db.Items, "ItemId", "Name");
+            ViewBag.CategoryId = new SelectList(db.Items, "ItemId", "Description");
             return View(thisCategory);
         }
         [HttpPost]
