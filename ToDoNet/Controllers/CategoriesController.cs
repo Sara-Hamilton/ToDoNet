@@ -21,7 +21,8 @@ namespace ToDoNet.Controllers
         }
         public IActionResult Details(int id)
         {
-            var thisCategory = db.Categories.FirstOrDefault(categories => categories.CategoryId == id);
+            var thisCategory = db.Categories.Include(category => category.Items)
+            .FirstOrDefault(categories => categories.CategoryId == id);
             return View(thisCategory);
         }
         public IActionResult Create()
