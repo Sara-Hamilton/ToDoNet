@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     <label>@Html.LabelFor(model => model.Description)</label>
-   <input class="form-control">@Html.EditorFor(model => model.Description)
+   @Html.EditorFor(model => model.Description)
    <br>
     <label>@Html.LabelFor(model => model.CategoryId)</label>  @Html.DropDownList("CategoryId")
     <br>
