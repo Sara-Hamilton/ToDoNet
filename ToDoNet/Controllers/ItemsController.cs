@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ToDoNet.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ToDoNet.Controllers
 {
@@ -13,8 +13,7 @@ namespace ToDoNet.Controllers
         private ToDoNetContext db = new ToDoNetContext();
         public IActionResult Index()
         {
-            List<Item> model = db.Items.ToList();
-            return View(model);
+            return View(db.Items.Include(items => items.Category).ToList());
         }
 
         public IActionResult Details(int id)
@@ -25,6 +24,7 @@ namespace ToDoNet.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
             return View();
         }
 
@@ -35,10 +35,18 @@ namespace ToDoNet.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int id)
+        {
+            var thisItem = db.Items.FirstOrDefault(items => items.ItemId == id);
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
+            return View(thisItem);
+        }
+
         [HttpPost]
         public IActionResult Edit(Item item)
         {
-            db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.Entry(item).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -57,5 +65,7 @@ namespace ToDoNet.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
     }
 }
