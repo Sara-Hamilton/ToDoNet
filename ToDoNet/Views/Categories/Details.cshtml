@@ -1,0 +1,24 @@
+﻿@model ToDoNet.Models.Category
+
+@{
+    ViewData["Title"] = "Category - Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Category Details</h2>
+<hr />
+
+<p>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</p>
+
+<p>Tasks in @Html.DisplayFor(model => model.Name)</p>
+@foreach (var listItem in @Model.Items)
+{
+    <ul>
+        <li>
+            @Html.DisplayFor(modelCategory => listItem.Description)
+        </li>
+       
+    </ul>
+}
+
+
+<p>@Html.ActionLink("Edit", "Edit", new { id = Model.CategoryId }) | @Html.ActionLink("Back to Categories", "Index")</p>
