@@ -18,7 +18,7 @@ namespace ToDoNet.Controllers
 
         public IActionResult Details(int id)
         {
-            Item thisItem = db.Items.FirstOrDefault(items => items.ItemId == id);
+            Item thisItem = db.Items.Include(items => items.Category).FirstOrDefault(items => items.ItemId == id);
             return View(thisItem);
         }
 
