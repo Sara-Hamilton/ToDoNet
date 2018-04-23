@@ -1,7 +1,6 @@
 # ToDoNet
-to do list build with visual studio# Travel Blog
 
-##### A to do list build with Visual Studio MVC and C#.  04/19/18
+##### A to do list built with Visual Studio MVC and C#.  04/16/18
 
 ## By Sara Hamilton and Nico Daunt
 
